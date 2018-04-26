@@ -8,10 +8,30 @@
 
     <mvc:annotation-driven/>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/hello"/>
+            <ref bean="handlerInterceptorAdapter"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <bean id="handlerInterceptorAdapter" class="com.cpp.core.interceptor.LimitHandlerInterceptorAdapter"/>
+
+
     <util:list id="mappingJackson2JsonViewList">
         <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
     </util:list>
 
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver"
           p:defaultViews-ref="mappingJackson2JsonViewList"/>
+
+    <!-- Handler Mappings -->
+    <!--<bean id="handlerMapping"-->
+          <!--class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">-->
+        <!--<property name="interceptors">-->
+            <!--<list>-->
+                <!--<ref bean="handlerInterceptorAdapter"/>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
 </beans>
